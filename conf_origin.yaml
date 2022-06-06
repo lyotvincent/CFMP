@@ -1,0 +1,747 @@
+ngs_pipeline:
+    enable: ~
+    preprocessing:
+        enable: ~ 
+        fastqc:
+            enable: ~
+            #--casava: Files come from raw casava output. Files in the same sample group (differing only by the group number) will be analysed as a set rather than individually. Sequences with the filter flag set in the header will be excluded from the analysis. Files must have the same names given to them by casava (including being gzipped and ending with .gz) otherwise they won't be grouped together correctly.
+            --casava: ~
+            #--nofilter: If running with --casava then don't remove read flagged by casava as poor quality when performing the QC analysis.
+            --nofilter: ~
+            #--nogroup: Disable grouping of bases for reads >50bp. All reports will show data for every base in the read.  WARNING: Using this option will cause fastqc to crash and burn if you use it on really long reads, and your plots may end up a ridiculous size. You have been warned!
+            --nogroup: ~
+            #-t: Specifies the number of files which can be processed simultaneously.  Each thread will be allocated 250MB of memory so you shouldn't run more threads than your available memory will cope with, and not more than 6 threads on a 32 bit machine
+            -t: ~
+            #-c: Specifies a non-default file which contains the list of contaminants to screen overrepresented sequences against. The file must contain sets of named contaminants in the form name[tab]sequence.  Lines prefixed with a hash will be ignored.
+            -c: ~
+            #-a: Specifies a non-default file which contains the list of adapter sequences which will be explicity searched against the library. The file must contain sets of named adapters in the form name[tab]sequence.  Lines prefixed with a hash will be ignored.
+            -a: ~
+            #-l: Specifies a non-default file which contains a set of criteria which will be used to determine the warn/error limits for the various modules.  This file can also be used to selectively remove some modules from the output all together.  The format needs to mirror the default limits.txt file found in the Configuration folder.
+            -l: ~
+            #-k: Specifies the length of Kmer to look for in the Kmer content module. Specified Kmer length must be between 2 and 10. Default length is 7 if not specified.
+            -k: ~
+        fastp:
+            enable: ~
+            #-6: indicate the input is using phred64 scoring (it'll be converted to phred33, so the output will still be phred33)
+            --phred64: ~
+            #-V: output verbose log information (i.e. when every 1M reads are processed).
+            -V: ~
+            #-A: adapter trimming is enabled by default. If this option is specified, adapter trimming is disabled
+            -A: ~
+            #--adapter_sequence: the adapter for read1. For SE data, if not specified, the adapter will be auto-detected. For PE data, this is used if R1/R2 are found not overlapped. (string [=auto])
+            --adapter_sequence: ~
+            #--adapter_sequence_r2: the adapter for read2 (PE data only). This is used if R1/R2 are found not overlapped. If not specified, it will be the same as <adapter_sequence> (string [=auto])
+            --adapter_sequence_r2: ~
+            #--adapter_fasta: specify a FASTA file to trim both read1 and read2 (if PE) by all the sequences in this FASTA file (string [=])
+            --adapter_fasta: ~
+            #--detect_adapter_for_pe: by default, the auto-detection for adapter is for SE data input only, turn on this option to enable it for PE data.
+            --detect_adapter_for_pe: ~
+            #-f: trimming how many bases in front for read1 default is 0 (int [=0])
+            -f: ~
+            #-t: trimming how many bases in tail for read1 default is 0 (int [=0])
+            -t: ~
+            #-b: if read1 is longer than max_len1 then trim read1 at its tail to make it as long as max_len1. Default 0 means no limitation (int [=0])
+            -b: ~
+            #-F: trimming how many bases in front for read2. If it's not specified, it will follow read1's settings (int [=0])
+            -F: ~
+            #-T: trimming how many bases in tail for read2. If it's not specified, it will follow read1's settings (int [=0])
+            -T: ~
+            #-B: if read2 is longer than max_len2, then trim read2 at its tail to make it as long as max_len2. Default 0 means no limitation. If it's not specified, it will follow read1's settings (int [=0])
+            -B: ~
+            #--trim_poly_g: force polyG tail trimming, by default trimming is automatically enabled for Illumina NextSeq/NovaSeq data
+            --trim_poly_g: ~
+            #--poly_g_min_len: the minimum length to detect polyG in the read tail. 10 by default. (int [=10])
+            --poly_g_min_len: ~
+            #-G: disable polyG tail trimming, by default trimming is automatically enabled for Illumina NextSeq/NovaSeq data
+            -G: ~
+            #--trim_poly_x: enable polyX trimming in 3' ends.
+            --trim_poly_x: ~
+            #--poly_x_min_len: the minimum length to detect polyX in the read tail. 10 by default. (int [=10])
+            --poly_x_min_len: ~
+            #-5: move a sliding window from front (5') to tail, drop the bases in the window if its mean quality < threshold, stop otherwise.
+            --cut_front: ~
+            #-3: move a sliding window from tail (3') to front, drop the bases in the window if its mean quality < threshold, stop otherwise.
+            --cut_tail: ~
+            #-r: move a sliding window from front to tail, if meet one window with mean quality < threshold, drop the bases in the window and the right part, and then stop.
+            -r: ~
+            #-W: the window size option shared by cut_front, cut_tail or cut_sliding. Range: 1~1000 default: 4 (int [=4])
+            -W: ~
+            #--cut_mean_quality: the mean quality requirement option shared by cut_front, cut_tail or cut_sliding. Range: 1~36 default: 20 (Q20) (int [=20])
+            --cut_mean_quality: ~
+            #--cut_front_window_size: the window size option of cut_front, default to cut_window_size if not specified (int [=4])
+            --cut_front_window_size: ~
+            #--cut_front_mean_quality: the mean quality requirement option for cut_front, default to cut_mean_quality if not specified (int [=20])
+            --cut_front_mean_quality: ~
+            #--cut_tail_window_size: the window size option of cut_tail, default to cut_window_size if not specified (int [=4])
+            --cut_tail_window_size: ~
+            #--cut_tail_mean_quality: the mean quality requirement option for cut_tail, default to cut_mean_quality if not specified (int [=20])
+            --cut_tail_mean_quality: ~
+            #--cut_right_window_size: the window size option of cut_right, default to cut_window_size if not specified (int [=4])
+            --cut_right_window_size: ~
+            #--cut_right_mean_quality: the mean quality requirement option for cut_right, default to cut_mean_quality if not specified (int [=20])
+            --cut_right_mean_quality: ~
+            #-Q: quality filtering is enabled by default. If this option is specified, quality filtering is disabled
+            -Q: ~
+            #-q: the quality value that a base is qualified. Default 15 means phred quality >=Q15 is qualified. (int [=15])
+            -q: ~
+            #-u: how many percents of bases are allowed to be unqualified (0~100). Default 40 means 40% (int [=40])
+            -u: ~
+            #-n: if one read's number of N base is >n_base_limit, then this read/pair is discarded. Default is 5 (int [=5])
+            -n: ~
+            #-e: if one read's average quality score <avg_qual, then this read/pair is discarded. Default 0 means no requirement (int [=0])
+            -e: ~
+            #-L: length filtering is enabled by default. If this option is specified, length filtering is disabled
+            -L: ~
+            #--length_required: reads shorter than length_required will be discarded, default is 15. (int [=15])
+            --length_required: ~
+            #--length_limit: reads longer than length_limit will be discarded, default 0 means no limitation. (int [=0])
+            --length_limit: ~
+            #--low_complexity_filter: enable low complexity filter. The complexity is defined as the percentage of base that is different from its next base (base[i] != base[i+1]).
+            --low_complexity_filter: ~
+            #--complexity_threshold: the threshold for low complexity filter (0~100). Default is 30 which means 30% complexity is required. (int [=30])
+            --complexity_threshold: ~
+            #--filter_by_index1: specify a file contains a list of barcodes of index1 to be filtered out, one barcode per line (string [=])
+            --filter_by_index1: ~
+            #--filter_by_index2: specify a file contains a list of barcodes of index2 to be filtered out, one barcode per line (string [=])
+            --filter_by_index2: ~
+            #--filter_by_index_threshold: the allowed difference of index barcode for index filtering, default 0 means completely identical. (int [=0])
+            --filter_by_index_threshold: ~
+            #--correction: enable base correction in overlapped regions (only for PE data), default is disabled
+            --correction: ~
+            #--overlap_len_require: the minimum length to detect overlapped region of PE reads. This will affect overlap analysis based PE merge, adapter trimming and correction. 30 by default. (int [=30])
+            --overlap_len_require: ~
+            #--overlap_diff_limit: the maximum number of mismatched bases to detect overlapped region of PE reads. This will affect overlap analysis based PE merge, adapter trimming and correction. 5 by default. (int [=5])
+            --overlap_diff_limit: ~
+            #--overlap_diff_percent_limit: the maximum percentage of mismatched bases to detect overlapped region of PE reads. This will affect overlap analysis based PE merge, adapter trimming and correction. Default 20 means 20%. (int [=20])
+            --overlap_diff_percent_limit: ~
+            #--umi: enable unique molecular identifier (UMI) preprocessing
+            --umi: ~
+            #--umi_loc: specify the location of UMI, can be (index1/index2/read1/read2/per_index/per_read, default is none (string [=])
+            --umi_loc: ~
+            #--umi_len: if the UMI is in read1/read2, its length should be provided (int [=0])
+            --umi_len: ~
+            #--umi_prefix: if specified, an underline will be used to connect prefix and UMI (i.e. prefix=UMI, UMI=AATTCG, final=UMI_AATTCG). No prefix by default (string [=])
+            --umi_prefix: ~
+            #--umi_skip: if the UMI is in read1/read2, fastp can skip several bases following UMI, default is 0 (int [=0])
+            --umi_skip: ~
+            #-p: enable overrepresented sequence analysis.
+            -p: ~
+            #-P: one in (--overrepresentation_sampling) reads will be computed for overrepresentation analysis (1~10000), smaller is slower, default is 20. (int [=20])
+            -P: ~
+            #-w: worker thread number, default is 2 (int [=2])
+            -w: ~
+        trimmomatic:
+            enable: ~
+            -threads: ~
+            -phred33: ~
+            -phred64: ~
+            -validatePairs: ~
+            #ILLUMINACLIP: this parameter should be string
+            ILLUMINACLIP: ~
+            LEADING: ~
+            TRAILING: ~
+            #SLIDINGWINDOW: this parameter should be string
+            SLIDINGWINDOW: ~
+            MINLEN: ~
+        cutadapt:
+            enable: ~
+            #-a: Sequence of an adapter ligated to the 3' end (paired data: of the first read). The adapter and subsequent bases are trimmed. If a '$' character is appended ('anchoring'), the adapter is only found if it is a suffix of the read.
+            -a: ~
+            #-g: Sequence of an adapter ligated to the 5' end (paired data: of the first read). The adapter and any preceding bases are trimmed. Partial matches at the 5' end are allowed. If a '^' character is prepended ('anchoring'), the adapter is only found if it is a prefix of the read.
+            -g: ~
+            #-b: Sequence of an adapter that may be ligated to the 5' or 3' end (paired data: of the first read). Both types of matches as described under -a und -g are allowed. If the first base of the read is part of the match, the behavior is as with -g, otherwise as with -a. This option is mostly for rescuing failed library preparations - do not use if you know which end your adapter was ligated to!
+            -b: ~
+            #-e: Maximum allowed error rate as value between 0 and 1 (no. of errors divided by length of matching region). Default: 0.1 (=10%)
+            -e: ~
+            #--no-indels: Allow only mismatches in alignments. Default: allow both mismatches and indels
+            --no-indels: ~
+            #-n: Remove up to COUNT adapters from each read. Default: 1
+            -n: ~
+            #-O: Require MINLENGTH overlap between read and adapter for an adapter to be found. Default: 3
+            -O: ~
+            #--match-read-wildcards: Interpret IUPAC wildcards in reads. Default: False
+            --match-read-wildcards: ~
+            #-N: Do not interpret IUPAC wildcards in adapters.
+            -N: ~
+            #-u: Remove bases from each read (first read only if paired). If LENGTH is positive, remove bases from the beginning. If LENGTH is negative, remove bases from the end. Can be used twice if LENGTHs have different signs. This is applied *before* adapter trimming.
+            -u: ~
+            #--nextseq-trim: NextSeq-specific quality trimming (each read). Trims also dark cycles appearing as high-quality G bases.
+            --nextseq-trim: ~
+            #-q: Trim low-quality bases from 5' and/or 3' ends of each read before adapter removal. Applied to both reads if data is paired. If one value is given, only the 3' end is trimmed. If two comma-separated cutoffs are given, the 5' end is trimmed with the first cutoff, the 3' end with the second.
+            -q: ~
+            #--quality-base: Assume that quality values in FASTQ are encoded as ascii(quality + N). This needs to be set to 64 for some old Illumina FASTQ files. Default: 33
+            --quality-base: ~
+            #--length: Shorten reads to LENGTH. Positive values remove bases at the end while negative ones remove bases at the beginning. This and the following modifications are applied after adapter trimming.
+            --length: ~
+            #--trim-n: Trim N's on ends of reads.
+            --trim-n: ~
+            #--length-tag: Search for TAG followed by a decimal number in the description field of the read. Replace the decimal number with the correct length of the trimmed read. For example, use --length-tag 'length=' to correct fields like 'length=123'.
+            --length-tag: ~
+            #--strip-suffix: Remove this suffix from read names if present. Can be given multiple times.
+            --strip-suffix: ~
+            #-x: Add this prefix to read names. Usename} to insert the name of the matching adapter.
+            -x: ~
+            #-y: Add this suffix to read names; can also includename}
+            -y: ~
+            #--zero-cap: Change negative quality values to zero.
+            --zero-cap: ~
+            #-m: Discard reads shorter than LEN. Default: ~
+            -m: ~
+            #-M: Discard reads longer than LEN. Default: no limit
+            -M: ~
+            #--max-n: Discard reads with more than COUNT 'N' bases. If COUNT is a number between 0 and 1 it is interpreted as a fraction of the read length.
+            --max-n: ~
+            #--discard-trimmed: Discard reads that contain an adapter. Use also -O to avoid discarding too many randomly matching reads.
+            --discard-trimmed: ~
+            #--discard-untrimmed: Discard reads that do not contain an adapter.
+            --discard-untrimmed: ~
+            #--discard-casava: Discard reads that did not pass CASAVA filtering (header has :Y:).
+            --discard-casava: ~
+            #-A: 3' adapter to be removed from second read in a pair.
+            -A: ~
+            #-G: 5' adapter to be removed from second read in a pair.
+            -G: ~
+            #-B: 5'/3 adapter to be removed from second read in a pair.
+            -B: ~
+            #-U: Remove LENGTH bases from second read in a pair.
+            -U: ~
+            #-p: Write second read in a pair to FILE.
+            -p: ~
+            #--pair-adapters: Treat adapters given with -a/-A etc. as pairs. Either both or none are removed from each read pair.
+            --pair-adapters: ~
+            #--pair-filter: Which of the reads in a paired-end read have to match the filtering criterion in order for the pair to be filtered. Default: any
+            --pair-filter: ~
+    decontamination:
+        enable: ~
+        contaminant: ~
+    assembly:
+        enable: ~
+        megahit:
+            enable: ~
+            #--min-count: <int>          minimum multiplicity for filtering (k_min+1)-mers [2]
+            --min-count: ~
+            #--k-list: <int,int,..>   comma-separated list of kmer size all must be odd, in the range 15-255, increment <= 28) [2129,39,59,79,99,119,141]
+            --k-list: ~
+            #--no-mercy: do not add mercy kmers
+            --no-mercy: ~
+            #--bubble-level: <int>          intensity of bubble merging (0-2), 0 to disable [2]
+            --bubble-level: ~
+            #--merge-level: <l,s>          merge complex bubbles of length <= l*kmer_size and similarity >= s [200.95]
+            --merge-level: ~
+            #--prune-level: <int>          strength of low depth pruning (0-3) [2]
+            --prune-level: ~
+            #--prune-depth: <int>          remove unitigs with avg kmer depth less than this value [2]
+            --prune-depth: ~
+            #--low-local-ratio: <float>        ratio threshold to define low local coverage contigs [0.2]
+            --low-local-ratio: ~
+            #--max-tip-len: <int>          remove tips less than this value [2*k]
+            --max-tip-len: ~
+            #--no-local: disable local assembly
+            --no-local: ~
+            #--kmin-1pass: use 1pass mode to build SdBG of k_min
+            --kmin-1pass: ~
+            #-m: <float>        max memory in byte to be used in SdBG construction (if set between 0-1 fraction of the machine's total memory) [0.9]
+            -m: ~
+            #--mem-flag: <int>          SdBG builder memory mode 0: minimum; 1: moderate; others: use all memory specified by '-m/--memory' [1]
+            --mem-flag: ~
+            #-t: <int>          number of CPU threads [# of logical processors]
+            -t: ~
+            #--no-hw-accel: run MEGAHIT without BMI2 and POPCNT hardware instructions
+            --no-hw-accel: ~
+            #--min-contig-len: <int>          minimum length of contigs to output [200]
+            --min-contig-len: ~
+        spades:
+            enable: ~
+            #--iontorrent: this flag is required for IonTorrent data
+            --iontorrent: ~
+            #--pacbio: <filename>  file with PacBio reads
+            --pacbio: ~
+            #--nanopore: <filename>  file with Nanopore reads
+            --nanopore: ~
+            #-t: <int>  number of threads [default: 16]
+            -t: ~
+            #-m: <int>  RAM limit for SPAdes in Gb (terminates if exceeded) [default: 250]
+            -m: ~
+            #-k: <int,int,...>  comma-separated list of k-mer sizes (must be odd and less than 128) [default: 'auto']
+            -k: ~
+            #--cov-cutoff: <float>  coverage cutoff value (a positive float number, or 'auto', or 'off') [default: 'off']
+            --cov-cutoff: ~
+            #--phred-offset: <33 or 64>  PHRED quality offset in the input reads (33 or 64) [default: auto-detect]
+            --phred-offset: ~
+            --meta: ~
+        idba-ud:
+            enable: ~
+            -r: ~
+            --read_level_2: ~
+            --read_level_3: ~
+            --read_level_4: ~
+            --read_level_5: ~
+            -l: ~
+            --mink: ~
+            --maxk: ~
+            --step: ~
+            --prefix: ~
+            --min_count: ~
+            --min_support: ~
+            --num_threads: ~
+            --seed_kmer: ~
+            --min_contig: ~
+            --similar: ~
+            --max_mismatch: ~
+            --min_pairs: ~
+            --no_coverage: ~
+            --no_correct: ~
+            --pre_correction: ~
+    gene_predition:
+        enable: ~ 
+        prodigal:
+            enable: ~ 
+            -c: ~ 
+            -m: ~ 
+            -n: ~ 
+            -s: ~ 
+            -t: ~ 
+            -f: ~ 
+            -g: ~ 
+            -p: ~ 
+        metagenemark:
+            enable: ~ 
+            -f: ~ 
+            -K: ~ 
+            -r: ~ 
+            -c: ~ 
+            -s: ~ 
+            -p: ~ 
+            -e: ~ 
+            -g: ~ 
+    functional_annotation:
+        enable: ~
+        emapper.py:
+            enable: ~
+            --matrix: ~ 
+            --gapopen: ~ 
+            --gapextend: ~ 
+            --query-cover: ~ 
+            --subject-cover: ~ 
+            --seed_ortholog_evalue: ~ 
+            --seed_ortholog_score: ~ 
+            --target_taxa: ~ 
+            --predict_output_format: ~ 
+            --cpu: ~
+        PHI_Annotation:
+            enable: ~
+            plot_for_top_k: ~
+        VFDB_Annotation:
+            enable: ~
+            plot_for_top_k: ~
+        CARD_Annotation:
+            enable: ~
+            plot_for_top_k: ~
+        TCDB_Annotation:
+            enable: ~
+            plot_for_top_k: ~
+        blastp:
+            enable: ~
+            -evalue: ~
+            -word_size: ~
+            -gapopen: ~
+            -gapextend: ~
+            -comp_based_stats: ~
+            -seg: ~
+            -qcov_hsp_perc: ~
+            -max_hsps: ~
+            -culling_limit: ~
+            -best_hit_overhang: ~
+            -best_hit_score_edge: ~
+            -max_target_seqs: ~
+            -xdrop_ungap: ~
+            -xdrop_gap: ~
+            -xdrop_gap_final: ~
+            -window_size: ~
+            -ungapped: ~
+        diamond:
+            enable: ~ 
+            --max-target-seqs: ~
+            --top: ~
+            --range-culling: ~
+            --evalue: ~
+            --min-score: ~
+            --id: ~
+            --query-cover: ~
+            --subject-cover: ~
+            --sensitive: ~
+            --more-sensitive: ~
+            --block-size: ~
+            --index-chunks: ~
+            --gapopen: ~
+            --gapextend: ~
+            --matrix: ~
+            --comp-based-stats: ~
+            --masking: ~
+            --no-self-hits: ~
+            --salltitles: ~
+            --sallseqid: ~
+            --algo: ~
+            --bin: ~
+            --min-orf: ~
+            --freq-sd: ~
+            --id2: ~
+            --window: ~
+            --xdrop: ~
+            --ungapped-score: ~
+            --band: ~
+            --shapes: ~
+            --shape-mask: ~
+            --culling-overlap: ~
+            --range-cover: ~
+            --no-auto-append: ~
+            --stop-match-score: ~
+            --tantan-minMaskProb: ~
+            --daa: ~
+            --forwardonly: ~
+            --seq: ~
+    Species_Annotation:
+        enable: ~
+        Kraken2:
+            enable: ~ 
+            --quick: ~
+            --gzip-compressed: ~
+            --bzip2-compressed: ~
+            --use-mpa-style: ~
+            --use-names: ~
+            --minimum-hit-groups: ~
+            --confidence: ~
+            --minimum-base-quality: ~
+        MetaOthello:
+            enable: ~ 
+            kmer_length: 25
+            db_kmer_length: ~
+            path_to_bacterial_referenceSeqFastaFile: ~
+            bacterial_reference_seq_associated_taxonomy_info_file: ~
+        MetaPhlAn2:
+            enable: ~ 
+            --input_type: ~ 
+            --bt2_ps: ~ 
+            --tax_lev: ~ 
+            --min_cu_len: ~ 
+            --min_alignment_len: ~ 
+            --ignore_viruses: ~ 
+            --ignore_eukaryotes: ~ 
+            --ignore_bacteria: ~ 
+            --ignore_archaea: ~ 
+            --avoid_disqm: ~ 
+            --no_map: ~ 
+            --stat_q: ~ 
+            --ignore_markers: ~ 
+            --stat: ~ 
+            -t: ~ 
+            --nreads: ~ 
+            --pres_th: ~ 
+            --clade: ~ 
+            --min_ab: ~ 
+            --read_min_len: ~ 
+
+tgs_pipeline:
+    enable: ~ 
+    tgs_quality_control:
+        enable: ~ 
+        NanoPlot:
+            enable: ~ 
+            --maxlength: ~
+            --minlength: ~ 
+            --drop_outliers: ~ 
+            --loglength: ~ 
+            --barcoded: ~ 
+            --percentqual: ~ 
+            --downsample: ~ 
+            --minqual: ~ 
+            --readtype: ~ 
+            --color: ~ 
+            --format: ~ 
+            --plots:
+                dot: ~ 
+                kde: ~ 
+                hex: ~ 
+                pauvre: ~ 
+            --no-N50: ~ 
+            --N50: ~ 
+            --title: ~ 
+        NanoFilt:
+            enable: ~ 
+            --maxlength: ~ 
+            --length: ~ 
+            --quality: ~ 
+            --minGC: ~ 
+            --maxGC: ~ 
+            --readtype: ~ 
+        Filtlong:
+            enable: ~ 
+            --target_bases: ~ 
+            --keep_percent: ~ 
+            --min_length: ~ 
+            --min_mean_q: ~ 
+            --min_window_q: ~ 
+            --length_weight: ~ 
+            --mean_q_weight: ~ 
+            --window_q_weight: ~ 
+            --trim: ~ 
+            --split: ~ 
+            --window_size: ~ 
+        Porechop:
+            enable: ~
+            --barcode_dir: ~
+            --barcode_threshold: ~
+            --barcode_diff: ~
+            --require_two_barcodes: ~
+            --untrimmed: ~
+            --discard_unassigned: ~
+            --adapter_threshold: ~
+            --check_reads: ~
+            --scoring_scheme: ~
+            --end_size: ~
+            --min_trim_size: ~
+            --extra_end_trim: ~
+            --end_threshold: ~
+            --no_split: ~
+            --discard_middle: ~
+            --middle_threshold: ~
+            --extra_middle_trim_good_side: ~
+            --extra_middle_trim_bad_side: ~
+            --min_split_read_size: ~
+    assembly:
+        enable: ~ 
+        canu:
+            enable: ~ 
+            genomeSize: ~ 
+            -pacbio-raw: ~ 
+            -pacbio-corrected: ~ 
+            -nanopore-raw: ~ 
+            -nanopore-corrected: ~ 
+            -p: ~ 
+            rawErrorRate: ~ 
+            correctedErrorRate: ~ 
+            minReadLength: ~ 
+            minOverlapLength: ~ 
+        Flye:
+            enable: ~ 
+            --input_type: ~ 
+            --genome-size: ~ 
+            --iterations: ~ 
+            --min-overlap: ~ 
+            --asm-coverage: ~ 
+            --hifi-error: ~ 
+            --meta: ~ 
+            --plasmids: ~ 
+            --trestle: ~ 
+            --polish-target: ~ 
+            --keep-haplotypes: ~ 
+        SMARTdenovo:
+            enable: ~ 
+            -p: ~ 
+            -e: ~ 
+            -k: ~ 
+            -J: ~ 
+            -c: ~ 
+    Polish:
+        enable: ~ 
+        Racon: 
+            enable: ~ 
+            -w: ~ 
+            -q: ~ 
+            -e: ~ 
+            -m: ~ 
+            -x: ~ 
+            -g: ~ 
+            -u: ~ 
+            --no-trimming: ~ 
+        Pilon:
+            enable: ~
+            --output: ~
+            --changes: ~
+            --vcf: ~
+            --vcfqe: ~
+            --tracks: ~
+            --variant: ~
+            --chunksize: ~
+            --diploid: ~
+            --fix: 
+                snps: ~
+                indels: ~
+                gaps: ~
+                local: ~
+                all: ~
+                bases: ~
+                none: ~
+                amb: ~
+                breaks: ~
+                circles: ~
+                novel: ~
+            --dumpreads: ~
+            --duplicates: ~
+            --iupac: ~
+            --nonpf: ~
+            --targets: ~
+            --defaultqual: ~
+            --flank: ~
+            --gapmargin: ~
+            --K: ~
+            --mindepth: ~
+            --mingap: ~
+            --minmq: ~
+            --minqual: ~
+            --nostrays: ~
+    decontamination:
+        enable: ~ 
+        contaminant: ~
+        input_type: ~
+    gene_predition:
+        enable: ~
+        prodigal:
+            enable: ~ 
+            -c: ~ 
+            -m: ~ 
+            -n: ~ 
+            -s: ~ 
+            -t: ~ 
+            -f: ~ 
+            -g: ~ 
+            -p: ~ 
+        metagenemark:
+            enable: ~ 
+            -f: ~ 
+            -K: ~ 
+            -r: ~ 
+            -c: ~ 
+            -s: ~ 
+            -p: ~ 
+            -e: ~ 
+            -g: ~ 
+    functional_annotation:
+        enable: ~
+        emapper.py:
+            enable: ~
+            --matrix: ~ 
+            --gapopen: ~ 
+            --gapextend: ~ 
+            --query-cover: ~ 
+            --subject-cover: ~ 
+            --seed_ortholog_evalue: ~ 
+            --seed_ortholog_score: ~ 
+            --target_taxa: ~ 
+            --predict _output_format: ~ 
+        PHI_Annotation:
+            enable: ~
+            plot_for_top_k: ~
+        VFDB_Annotation:
+            enable: ~
+            plot_for_top_k: ~
+        CARD_Annotation:
+            enable: ~
+            plot_for_top_k: ~
+        TCDB_Annotation:
+            enable: ~
+            plot_for_top_k: ~
+        blastp:
+            enable: ~
+            -evalue: ~
+            -word_size: ~
+            -gapopen: ~
+            -gapextend: ~
+            -comp_based_stats: ~
+            -seg: ~
+            -qcov_hsp_perc: ~
+            -max_hsps: ~
+            -culling_limit: ~
+            -best_hit_overhang: ~
+            -best_hit_score_edge: ~
+            -max_target_seqs: ~
+            -xdrop_ungap: ~
+            -xdrop_gap: ~
+            -xdrop_gap_final: ~
+            -window_size: ~
+            -ungapped: ~
+        diamond:
+            enable: ~ 
+            --max-target-seqs: ~
+            --top: ~
+            --range-culling: ~
+            --evalue: ~
+            --min-score: ~
+            --id: ~
+            --query-cover: ~
+            --subject-cover: ~
+            --sensitive: ~
+            --more-sensitive: ~
+            --block-size: ~
+            --index-chunks: ~
+            --gapopen: ~
+            --gapextend: ~
+            --matrix: ~
+            --comp-based-stats: ~
+            --masking: ~
+            --no-self-hits: ~
+            --sallseqid: ~
+            --sallseqid: ~
+            --algo: ~
+            --bin: ~
+            --min-orf: ~
+            --freq-sd: ~
+            --id2: ~
+            --window: ~
+            --xdrop: ~
+            --ungapped-score: ~
+            --band: ~
+            --shapes: ~
+            --shape-mask: ~
+            --culling-overlap: ~
+            --range-cover: ~
+            --no-auto-append: ~
+            --stop-match-score: ~
+            --tantan-minMaskProb: ~
+            --daa: ~
+            --forwardonly: ~
+            --seq: ~
+    Species_Annotation:
+        enable: ~
+        Kraken2:
+            enable: ~ 
+            --quick: ~
+            --minimum-hit-groups: ~
+            --confidence: ~
+            --minimum-base-quality: ~
+        MetaOthello:
+            enable: ~ 
+            Kmer_length: 25
+        MetaPhlAn3:
+            enable: ~ 
+            --input_type: ~ 
+            --bt2_ps: ~ 
+            --tax_lev: ~ 
+            --min_cu_len: ~ 
+            --min_alignment_len: ~ 
+            --ignore_viruses: ~ 
+            --ignore_eukaryotes: ~ 
+            --ignore_bacteria: ~ 
+            --ignore_archaea: ~ 
+            --avoid_disqm: ~ 
+            --no_map: ~ 
+            --stat_q: ~ 
+            --ignore_markers: ~ 
+            --stat: ~ 
+            -t: ~ 
+            --nreads: ~ 
+            --pres_th: ~ 
+            --clade: ~ 
+            --min_ab: ~ 
+            --read_min_len: ~ 
+
+
+
+
+
+
+
+
+
+
+
