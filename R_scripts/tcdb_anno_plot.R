@@ -1,0 +1,6 @@
+library(ggplot2)
+args <- commandArgs(T)
+data = read.table(args[1], header=T, sep="\t")
+dorder = factor(as.integer(rownames(data)), labels=data$TC)
+pic <- ggplot(data, aes(x=TC, y=Gene_TPM))+geom_bar(stat="identity", position=position_dodge(0.7), width=0.5, aes(x=dorder))+theme(axis.text.x=element_text(angle=45,hjust=1,vjust=1))+scale_y_log10(breaks=c(1,10,100,1000))+theme(panel.background=element_rect(fill="transparent", colour=NA))+xlab("Transporter Classification")
+ggsave(pic, file=args[2],width=12, height=10)

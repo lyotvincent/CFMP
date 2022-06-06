@@ -1,0 +1,6 @@
+library(ggplot2)
+args<-commandArgs(T)
+data = read.table(args[1], header=T, sep='\t')
+dorder = factor(as.integer(rownames(data)), labels=data$COG)
+pic <- ggplot(data, aes(x=COG, y=Gene_TPM))+geom_bar(stat='identity', position=position_dodge(0.7), width=0.5, aes(x=dorder))+scale_y_log10(breaks=c(1,10,100,1000))+theme(panel.background=element_rect(fill='transparent',colour=NA))+xlab('COG')
+ggsave(pic, file=args[2], width=15, height=10)

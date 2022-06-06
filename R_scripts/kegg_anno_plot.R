@@ -1,0 +1,6 @@
+library(ggplot2)
+args<-commandArgs(T)
+data = read.table(args[1], header=T, sep='\t')
+dorder = factor(as.integer(rownames(data)), labels=data$level2_pathway_name)
+pic <- ggplot(data, aes(x=level2_pathway_name, y=Gene_TPM, fill=level1_pathway_name))+geom_bar(stat="identity", position=position_dodge(0.7), width=0.5, aes(x=dorder))+coord_flip()+scale_y_log10(breaks=c(1,10,100,1000))+scale_fill_discrete(name="KEGG_Pathway_Level1")+theme(panel.background=element_rect(fill="transparent", colour=NA))+xlab("KEGG_Pathway_level2")
+ggsave(pic, file=args[2],width=12, height=9)
