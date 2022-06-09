@@ -26,3 +26,5 @@ The ✔ in 'conda' column means that the software cound install by conda.
 |bowtie2|✔|<https://github.com/BenLangmead/bowtie2>|
 |samtools|✔|<https://github.com/samtools/samtools>|
 |minimap2|✔|<https://github.com/lh3/minimap2>|
+|megahit|✔|<https://github.com/voutcn/megahit>|
+|spades|✔|<https://github.com/ablab/spades>|
