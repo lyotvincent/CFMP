@@ -12,7 +12,7 @@ class Decontamination:
         self.input_file = input_file
         self.input_file_1 = input_file_1
         self.input_file_2 = input_file_2 
-        
+        self.path_to_bedtools = os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'softwares'),'metaOthello-master')
     def decontamination_single_end(self):
         print('Begin Decontamination_Single_End')
         if self.conf['contaminant'] != None:
@@ -30,7 +30,7 @@ class Decontamination:
         subprocess.run(com, shell=True, check=True)
         com1 = 'samtools view -b -f 4 -F 256 '+ self.result_dir + '/decontamination/contaminant.bam > '+ self.result_dir + '/decontamination/clean_reads.bam'
         com2 = 'samtools sort -n '+ self.result_dir + '/decontamination/clean_reads.bam > '+ self.result_dir + '/decontamination/clean_reads_sorted.bam'
-        com3 = 'bedtools bamtofastq -i ' + self.result_dir + '/decontamination/clean_reads_sorted.bam -fq ' + self.result_dir + '/decontamination/clean_reads.fastq'
+        com3 = os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'softwares'),'bedtools')+' bamtofastq -i ' + self.result_dir + '/decontamination/clean_reads_sorted.bam -fq ' + self.result_dir + '/decontamination/clean_reads.fastq'
         subprocess.run(com1, shell=True, check=True)
         subprocess.run(com2, shell=True, check=True)
         subprocess.run(com3, shell=True, check=True)
@@ -52,7 +52,7 @@ class Decontamination:
         subprocess.run(com, shell=True, check=True)
         com1 = 'samtools view -b -f 12 -F 256 '+ self.result_dir + '/decontamination/contaminant.bam > '+ self.result_dir + '/decontamination/clean_reads.bam'
         com2 = 'samtools sort -n '+ self.result_dir + '/decontamination/clean_reads.bam > '+ self.result_dir + '/decontamination/clean_reads_sorted.bam'
-        com3 = 'bedtools bamtofastq -i ' + self.result_dir + '/decontamination/clean_reads_sorted.bam -fq ' + self.result_dir + '/decontamination/clean_reads_1.fastq -fq2 '+self.result_dir + '/decontamination/clean_reads_2.fastq'
+        com3 = os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'softwares'),'bedtools')+' bamtofastq -i ' + self.result_dir + '/decontamination/clean_reads_sorted.bam -fq ' + self.result_dir + '/decontamination/clean_reads_1.fastq -fq2 '+self.result_dir + '/decontamination/clean_reads_2.fastq'
         subprocess.run(com1, shell=True, check=True) 
         subprocess.run(com2, shell=True, check=True) 
         subprocess.run(com3, shell=True, check=True) 
@@ -88,7 +88,7 @@ class Decontamination:
         subprocess.run(com, shell=True, check=True)
         com1 = 'samtools view -b -f 4 -F 256 '+ self.result_dir + '/decontamination/contaminant.bam > '+ self.result_dir + '/decontamination/clean_reads.bam'
         com2 = 'samtools sort -n '+ self.result_dir + '/decontamination/clean_reads.bam > '+ self.result_dir + '/decontamination/clean_reads_sorted.bam'
-        com3 = 'bedtools bamtofastq -i ' + self.result_dir + '/decontamination/clean_reads_sorted.bam -fq ' + self.result_dir + '/decontamination/clean_reads.fastq'
+        com3 = os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'softwares'),'bedtools')+' bamtofastq -i ' + self.result_dir + '/decontamination/clean_reads_sorted.bam -fq ' + self.result_dir + '/decontamination/clean_reads.fastq'
         com4 = 'fq2fa '+self.result_dir + '/decontamination/clean_reads.fastq '+self.result_dir+'/decontamination/clean_reads.fasta'
         #com2 = 'samtools view '+ self.result_dir + '/decontamination/clean_reads.bam |  awk \'{OFS="\t"; print ">"$1"\n"$10}\' - > '+ self.result_dir + '/decontamination/clean_reads.fasta'
         subprocess.run(com1, shell=True, check=True)
