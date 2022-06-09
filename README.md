@@ -23,3 +23,10 @@ The ✔ in 'conda' column means that the software cound install by conda.
 |fastp|✔|<https://github.com/OpenGene/fastp>|
 |trimmomatic|✔|<https://github.com/timflutre/trimmomatic>|
 |cutadapt|✔|<https://github.com/marcelm/cutadapt>|
+|bowtie2|✔|<https://github.com/BenLangmead/bowtie2>|
+|samtools|✔|<https://github.com/samtools/samtools>|
+|minimap2|✔|<https://github.com/lh3/minimap2>|
+|megahit|✔|<https://github.com/voutcn/megahit>|
+|spades|✔|<https://github.com/ablab/spades>|
+|idba|✔|<https://github.com/loneknightpy/idba>|
+|QUAST|✔|<https://github.com/ablab/quast>|
