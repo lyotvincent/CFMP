@@ -13,3 +13,13 @@ CFMP is an automatic metagenomic analysis pipeline supporting short-read and lon
 3. Build Kraken2 database: create kraken2 database folder ```mkdir softwares/kraken2_db``` && then run ```kraken2-build --standard --db softwares/kraken2_db```.
 4. Download hg19 database and build index: change directory to hg19 ```cd hg19```&& then run ```python download_hg19.py```.   
 5. Download MetaOthello database index: change directory to softwares/metaOthello-master ```cd softwares/metaOthello-master``` && then run ```python download_metaOthello_index.py```.  
+
+## External tools
+These software/tools respectively support part of the entire pipeline. If you want to use all the functions of the pipeline, all these software in the table should be installed.
+The ✔ in 'conda' column means that the software cound install by conda.
+|software|conda|download link|
+|----|----|----|
+|FastQC|✔|<http://www.bioinformatics.babraham.ac.uk/projects/fastqc/>|
+|fastp|✔|<https://github.com/OpenGene/fastp>|
+|trimmomatic|✔|<https://github.com/timflutre/trimmomatic>|
+|cutadapt|✔|<https://github.com/marcelm/cutadapt>|
