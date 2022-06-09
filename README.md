@@ -12,4 +12,4 @@ CFMP is an automatic metagenomic analysis pipeline supporting short-read and lon
 2.3. Install external tools by running a shell script ```sh install_dependencies.sh```  
 3. Build Kraken2 database: create kraken2 database folder ```mkdir softwares/kraken2_db``` && then run ```kraken2-build --standard --db softwares/kraken2_db```.
 4. Download hg19 database and build index: change directory to hg19 ```cd hg19```&& then run ```python download_hg19.py```.   
-5. Download MetaOthello database index:  
+5. Download MetaOthello database index: change directory to softwares/metaOthello-master ```cd softwares/metaOthello-master``` && then run ```python download_metaOthello_index.py```.  
