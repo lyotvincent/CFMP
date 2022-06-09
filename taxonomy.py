@@ -33,14 +33,14 @@ class TaxonomyAnnotation:
             files = self.get_deep_data(path_to_bacterial_referenceSeqFastaFile)
             for file in files:
                 i = file.split('.')[-2]
-                com += 'jellyfish count -o '+os.path.abspath('.')+'/'+self.result_dir+'/taxonomy/metaothello_out'+' '+i+'.jf -m ' 
+                com += os.path.join(os.path.join(os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'softwares'),'jellyfish-2.3.0'),'bin'),'jellyfish')+' count -o '+os.path.abspath('.')+'/'+self.result_dir+'/taxonomy/metaothello_out'+' '+i+'.jf -m ' 
                 if db_kmer_length:
                     com += db_kmer_length+' '
                 else:
                     com += '6 '
                 com += '-s 1G -C '+os.path.join(path_to_bacterial_referenceSeqFastaFile,file)
                 subprocess.run(com,shell=True,check=True)
-                com = 'jellyfish dump -t -c -o '+os.path.abspath('.')+'/'+self.result_dir+'/taxonomy/metaothello_out/kmer_filedir/'+i+'.Kmer'+' '+os.path.abspath('.')+'/'+self.result_dir+'/taxonomy/metaothello_out/'+i+'.jf'
+                com = os.path.join(os.path.join(os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'softwares'),'jellyfish-2.3.0'),'bin'),'jellyfish')+' dump -t -c -o '+os.path.abspath('.')+'/'+self.result_dir+'/taxonomy/metaothello_out/kmer_filedir/'+i+'.Kmer'+' '+os.path.abspath('.')+'/'+self.result_dir+'/taxonomy/metaothello_out/'+i+'.jf'
                 subprocess.run(com,shell=True,check=True) 
             com = metaothello_software_dir+'/build/build '+bacterial_reference_seq_associated_taxonomy_info_file+' '+os.path.abspath('.')+'/'+self.result_dir+'/taxonomy/metaothello_out/kmer_filedir'+' Kmer'
             if db_kmer_length:
@@ -91,14 +91,14 @@ class TaxonomyAnnotation:
             files = self.get_deep_data(path_to_bacterial_referenceSeqFastaFile)
             for file in files:
                 i = file.split('.')[-2]
-                com += 'jellyfish count -o '+os.path.abspath('.')+'/'+self.result_dir+'/taxonomy/metaothello_out'+' '+i+'.jf -m ' 
+                com += os.path.join(os.path.join(os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'softwares'),'jellyfish-2.3.0'),'bin'),'jellyfish')+' count -o '+os.path.abspath('.')+'/'+self.result_dir+'/taxonomy/metaothello_out'+' '+i+'.jf -m ' 
                 if db_kmer_length:
                     com += db_kmer_length+' '
                 else:
                     com += '6 '
                 com += '-s 1G -C '+os.path.join(path_to_bacterial_referenceSeqFastaFile,file)
                 subprocess.run(com,shell=True,check=True)
-                com = 'jellyfish dump -t -c -o '+os.path.join(os.path.join(os.path.abspath('.')+'/'+self.result_dir+'/taxonomy/metaothello_out','kmer_filedir'),i+'.Kmer')+' '+os.path.join(os.path.abspath('.')+'/'+self.result_dir+'/taxonomy/metaothello_out',i+'.jf')
+                com = os.path.join(os.path.join(os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'softwares'),'jellyfish-2.3.0'),'bin'),'jellyfish')+' dump -t -c -o '+os.path.join(os.path.join(os.path.abspath('.')+'/'+self.result_dir+'/taxonomy/metaothello_out','kmer_filedir'),i+'.Kmer')+' '+os.path.join(os.path.abspath('.')+'/'+self.result_dir+'/taxonomy/metaothello_out',i+'.jf')
                 subprocess.run(com,shell=True,check=True) 
             com = metaothello_software_dir+'/build/build '+bacterial_reference_seq_associated_taxonomy_info_file+' '+os.path.join(os.path.abspath('.')+'/'+self.result_dir+'/taxonomy/metaothello_out','kmer_filedir')+' Kmer'
             if db_kmer_length:
