@@ -28,4 +28,4 @@ The ✔ in 'conda' column means that the software cound install by conda.
 |minimap2|✔|<https://github.com/lh3/minimap2>|
 |megahit|✔|<https://github.com/voutcn/megahit>|
 |spades|✔|<https://github.com/ablab/spades>|
-|idba_ud|✔|<https://github.com/loneknightpy/idba>|
+|idba|✔|<https://github.com/loneknightpy/idba>|
