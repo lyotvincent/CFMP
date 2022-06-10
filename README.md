@@ -34,3 +34,4 @@ The ✔ in 'conda' column means that the software cound install by conda.
 |Kraken2|✔|<https://github.com/DerrickWood/kraken2>|
 |Bracken|✔|<https://github.com/jenniferlu717/Bracken>|
 |MetaPhlan3|✔|<https://github.com/biobakery/MetaPhlAn>|
+|prodigal|✔|<https://github.com/hyattpd/Prodigal>|
