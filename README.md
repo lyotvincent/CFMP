@@ -14,6 +14,7 @@ CFMP is an automatic metagenomic analysis pipeline supporting short-read and lon
 4. Download Krona taxonomy: change directory to softwares/krona/ ```cd softwares/krona/``` && then run ```./updateTaxonomy.sh taxonomy/```.  
 5. Download hg19 database and build index: change directory to hg19 ```cd hg19```&& then run ```python download_hg19.py```.   
 6. Download MetaOthello database index: change directory to softwares/metaOthello-master ```cd softwares/metaOthello-master``` && then run ```python download_metaOthello_index.py```.  
+7. Download eggnog-mapper database: run ```download_eggnog_data.py```.  
 
 ## External tools
 These software/tools respectively support part of the entire pipeline. If you want to use all the functions of the pipeline, all these software in the table should be installed.
@@ -37,3 +38,4 @@ The ✔ in 'conda' column means that the software cound install by conda.
 |prodigal|✔|<https://github.com/hyattpd/Prodigal>|
 |salmon|✔|<https://github.com/COMBINE-lab/salmon>|
 |BLAST|✔|<https://blast.ncbi.nlm.nih.gov/Blast.cgi>|
+|eggnog-mapper|✔|<https://github.com/eggnogdb/eggnog-mapper>|
