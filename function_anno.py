@@ -239,7 +239,7 @@ class Function_Annotation:
         diamonddaa = diamond_conf['--daa']
         diamondforwardonly = diamond_conf['--forwardonly'] 
         diamondseq = diamond_conf['--seq']
-        com = 'diamond blastp --outfmt 6 '
+        com = os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'softwares'),'diamond')+' blastp --outfmt 6 '
         if diamondmaxtargetseqs:
             com += '--max-target-seqs '+diamondmaxtargetseqs+' '
         if diamondtop:

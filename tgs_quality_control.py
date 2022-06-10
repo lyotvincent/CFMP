@@ -116,7 +116,7 @@ class tgs_quality_control:
         trim = filtlong_conf['--trim']
         split = filtlong_conf['--split']
         window_size = filtlong_conf['--window_size']
-        com = 'filtlong '
+        com = os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'softwares'),'filtlong')+' '
         if target_bases:
             com += '--target_bases ' + str(target_bases) + ' '
         if keep_percent:

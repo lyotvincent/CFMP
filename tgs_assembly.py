@@ -91,7 +91,7 @@ class tgs_assembly:
         smartdenovok = smartdenovo_conf['-k']
         smartdenovoJ = smartdenovo_conf['-J']
         smartdenovoc = smartdenovo_conf['-c']
-        com = 'smartdenovo.pl '
+        com = os.path.join(os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'softwares'),'smartdenovo'),'smartdenovo.pl')+' '
         if smartdenovop:
             com += '-p '+os.path.join(os.path.join(self.result_dir,'tgs_assembly'),smartdenovop)+' '
             os.mkdir(os.path.join(os.path.join(self.result_dir,'tgs_assembly'),smartdenovop))

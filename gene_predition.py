@@ -46,9 +46,9 @@ class Gene_Predition:
         if t:
             com += '-t '
         subprocess.run(com, shell=True, check=True, encoding='utf-8')
-        com = 'cd-hit-est -i ' + os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/prodigal_out/prodigal_nucleotide.fasta' + ' -o '+os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/prodigal_out/prodigal_nucleotide_cdhit.fasta'
+        com = os.path.join(os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'softwares'),'cd-hit'),'cd-hit-est')+' -i ' + os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/prodigal_out/prodigal_nucleotide.fasta' + ' -o '+os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/prodigal_out/prodigal_nucleotide_cdhit.fasta'
         subprocess.run(com, shell=True, check=True, encoding='utf-8')
-        com = 'cd-hit -i ' + os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/prodigal_out/prodigal_protein.fasta' + ' -o '+os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/prodigal_out/prodigal_protein_cdhit.fasta'
+        com = os.path.join(os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'softwares'),'cd-hit'),'cd-hit')+' -i ' + os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/prodigal_out/prodigal_protein.fasta' + ' -o '+os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/prodigal_out/prodigal_protein_cdhit.fasta'
         subprocess.run(com, shell=True, check=True, encoding='utf-8')
         com = 'salmon index -t ' + os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/prodigal_out/prodigal_nucleotide_cdhit.fasta' +' -i '+os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/prodigal_out/gene_index'
         subprocess.run(com, shell=True, check=True, encoding='utf-8')
@@ -61,7 +61,7 @@ class Gene_Predition:
         print('End Prodigal')
     def metagenemark(self):
         print('Begin MetaGeneMark')
-        path_to_metagenemark_v1_mod='/hadoop/tianmei/softwares/MetaGeneMark_linux_64/mgm/MetaGeneMark_v1.mod'
+        path_to_metagenemark_v1_mod=os.path.join(os.path.join(os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'softwares'),'MetaGeneMark_linux_64'),'mgm'),'MetaGeneMark_v1.mod')
         metagenemark_conf = self.conf['metagenemark']
         f = metagenemark_conf['-f']
         K = metagenemark_conf['-K']
@@ -71,7 +71,7 @@ class Gene_Predition:
         p = metagenemark_conf['-p']
         e = metagenemark_conf['-e']
         g = metagenemark_conf['-g']
-        com = 'gmhmmp '
+        com = os.path.join(os.path.join(os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'softwares'),'MetaGeneMark_linux_64'),'mgm'),'gmhmmp')+' '
         if r:
             com += '-r '
         if s:
@@ -92,9 +92,9 @@ class Gene_Predition:
         if K:
             com += '-K '+os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/metagenemark_out/metagenemark_RBS.fasta'
         subprocess.run(com, shell=True, check=True, encoding='utf-8')
-        com = 'cd-hit-est -i ' + os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/metagenemark_out/metagenemark_nucleotide.fasta' + ' -o '+os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/metagenemark_out/metagenemark_nucleotide_cdhit.fasta'
+        com = os.path.join(os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'softwares'),'cd-hit'),'cd-hit-est')+' -i ' + os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/metagenemark_out/metagenemark_nucleotide.fasta' + ' -o '+os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/metagenemark_out/metagenemark_nucleotide_cdhit.fasta'
         subprocess.run(com, shell=True, check=True, encoding='utf-8')
-        com = 'cd-hit -i ' + os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/metagenemark_out/metagenemark_protein.fasta' + ' -o '+os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/metagenemark_out/metagenemark_protein_cdhit.fasta'
+        com = os.path.join(os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'softwares'),'cd-hit'),'cd-hit')+' -i ' + os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/metagenemark_out/metagenemark_protein.fasta' + ' -o '+os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/metagenemark_out/metagenemark_protein_cdhit.fasta'
         subprocess.run(com, shell=True, check=True, encoding='utf-8')
         com = 'salmon index -t ' + os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/metagenemark_out/metagenemark_nucleotide_cdhit.fasta' +' -i '+os.path.abspath('.')+'/'+self.result_dir+'/gene_predition/metagenemark_out/gene_index'
         subprocess.run(com, shell=True, check=True, encoding='utf-8')

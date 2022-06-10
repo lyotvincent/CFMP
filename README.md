@@ -30,3 +30,5 @@ The ✔ in 'conda' column means that the software cound install by conda.
 |spades|✔|<https://github.com/ablab/spades>|
 |idba|✔|<https://github.com/loneknightpy/idba>|
 |QUAST|✔|<https://github.com/ablab/quast>|
+|Kraken2|✔|<https://github.com/DerrickWood/kraken2>|
+|MetaPhlan3|✔|<https://github.com/biobakery/MetaPhlAn>|
