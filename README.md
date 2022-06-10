@@ -39,3 +39,6 @@ The ✔ in 'conda' column means that the software cound install by conda.
 |salmon|✔|<https://github.com/COMBINE-lab/salmon>|
 |BLAST|✔|<https://blast.ncbi.nlm.nih.gov/Blast.cgi>|
 |eggnog-mapper|✔|<https://github.com/eggnogdb/eggnog-mapper>|
+|NanoPlot|✔|<https://github.com/wdecoster/NanoPlot>|
+|NanoFilt|✔|<https://github.com/wdecoster/nanofilt>|
+|Porechop|✔|<https://github.com/rrwick/Porechop>|
