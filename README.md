@@ -44,4 +44,5 @@ The ✔ in 'conda' column means that the software cound install by conda.
 |Porechop|✔|<https://github.com/rrwick/Porechop>|
 |Canu|✔|<https://github.com/marbl/canu>|
 |Flye|✔|<https://github.com/fenderglass/Flye>|
+|Racon|✔|<https://github.com/isovic/racon>|
 
