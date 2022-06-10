@@ -42,3 +42,4 @@ The ✔ in 'conda' column means that the software cound install by conda.
 |NanoPlot|✔|<https://github.com/wdecoster/NanoPlot>|
 |NanoFilt|✔|<https://github.com/wdecoster/nanofilt>|
 |Porechop|✔|<https://github.com/rrwick/Porechop>|
+|Canu|✔|<https://github.com/marbl/canu>|
