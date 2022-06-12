@@ -46,3 +46,26 @@ The ✔ in 'conda' column means that the software cound install by conda.
 |Flye|✔|<https://github.com/fenderglass/Flye>|
 |Racon|✔|<https://github.com/isovic/racon>|
 
+## Help
+simple usage
+```python main.py -1 XXX.fastq -2 XXX.fastq -ngs -conf_file_path ./cfmp_configuration_template.xlsx -o result_folder```  
+
+```python main.py -h``` to help.  
+
+parameters in pipeline:  
+
+help:  
+-f input single end file when -ngs or input pacbio/nanopore file when -tgs  
+-1 and -2 input paired end files when -ngs or input illumina_1 and illumina_2 for polish when -tgs  
+-pacbio input pacbio file for polish when -tgs  
+-nanopore input nanopore file for polish when -tgs  
+-o out directory name  
+-ngs make pipeline run for next-generation sequencing data (short reads)  
+-tgs make pipeline run for third-generation sequencing data (long reads)  
+-conf_file_path configuration file for CFMP pipeline which is in xlsx format  
+-h or -help or --h or --help look help  
+
+## Configuration file
+
+```cfmp_configuration_template.xlsx``` in the ```Help``` is the configuration file of CFMP.  
+Users could customize parameters in this configuration file.  
